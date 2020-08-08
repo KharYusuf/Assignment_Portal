@@ -187,7 +187,6 @@ app.get('/mygroups/addgroup', redirectLogin, (req,res)=>{
     });
 });
 app.get('/mygroups/:groupnum/addroll', redirectLogin, (req,res)=>{
-    console.log("lmao noob");
     const group = client.db(req.session.user).collection('groups');
     const users = client.db("Verified_users").collection("details");
     users.findOne({email: req.session.user+'@nirmauni.ac.in'}, function(err, result){
@@ -255,7 +254,6 @@ app.get('/mygroups', redirectLogin, (req, res)=> {
     });
 });
 app.get('/myassignments/:assnum/addques', redirectLogin, (req,res)=>{
-    console.log("lmao noob");
     const assign = client.db(req.session.user).collection('assignments');
     const users = client.db("Verified_users").collection("details");
     users.findOne({email: req.session.user+'@nirmauni.ac.in'}, function(err, result){
@@ -288,7 +286,6 @@ app.post('/myassignments/addques/submit/:assnum', redirectLogin, (req,res)=>{
 app.post('/myassignments/viewsubmissions/:assnum',(req,res)=>{
     const users = client.db("Verified_users").collection("details");
     const assign = client.db(req.session.user).collection(req.params.assnum);
-    console.log("im here noob11111");
     users.findOne({email: req.session.user+'@nirmauni.ac.in'}, function(err, result){
         if(err) res.render(err);
         else if(result==null) res.redirect('/login');
@@ -300,14 +297,12 @@ app.post('/myassignments/viewsubmissions/:assnum',(req,res)=>{
                 console.log(result1); 
                 res.render('Teacher/MyAssignments/specificroll', {profile:result, sub: result1, ass:req.params.assnum});
             });
-            console.log("nai mila11");
         }
     });
 });
 app.get('/myassignments/viewsubmissions/:assnum',(req,res)=>{
     const users = client.db("Verified_users").collection("details");
     const assign = client.db(req.session.user).collection(req.params.assnum);
-    console.log("im here noob11111");
     users.findOne({email: req.session.user+'@nirmauni.ac.in'}, function(err, result){
         if(err) res.render(err);
         else if(result==null) res.redirect('/login');
@@ -319,14 +314,12 @@ app.get('/myassignments/viewsubmissions/:assnum',(req,res)=>{
                 console.log(result1); 
                 res.render('Teacher/MyAssignments/submissions', {profile:result, sub: result1, ass:req.params.assnum});
             });
-            console.log("nai mila11");
         }
     });
 });
 app.get('/myassignments/:assnum', redirectLogin, (req,res)=>{
     const users = client.db("Verified_users").collection("details");
     const assign = client.db(req.session.user).collection('assignments');
-    console.log("im here noob");
     users.findOne({email: req.session.user+'@nirmauni.ac.in'}, function(err, result){
         if(err) res.render(err);
         else if(result==null) res.redirect('/login');
@@ -338,7 +331,6 @@ app.get('/myassignments/:assnum', redirectLogin, (req,res)=>{
                 console.log(result1); 
                 res.render('Teacher/MyAssignments/assignments', {profile:result, ass: result1});
             });
-            console.log("nai mila");
         }
     });
 });
@@ -466,7 +458,6 @@ app.get('/incorrectLogin', (req, res)=> {
 });
 
 app.get('/login', (req, res)=>{
-    //console.log(req.session.user);
     res.writeHead(200, {'Content-Type':'text/html'});
     var readStream = fs.createReadStream(__dirname + '/login.html', 'utf8');
     readStream.pipe(res);
@@ -480,7 +471,6 @@ app.post('/verifyOTP/:mail', (req, res)=> {
     const collection = client.db("test").collection("OTP");
     const collection2 = client.db("Verified_users").collection("details");
     const mail=req.params.mail+'@nirmauni.ac.in';
-    //console.log(mail);
     collection.findOne({email: mail}, function(err, result){
         if(err) res.render(err);
         else if(result==null) res.render("No OTP exists. Please signup again");
